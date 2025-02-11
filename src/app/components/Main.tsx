@@ -16,7 +16,7 @@ export const Main = () => {
     setListings([]);
 
     try {
-      const response = await fetch("http://localhost:5001/scrape");
+      const response = await fetch("/api/scrape");
       if (!response.ok) {
         throw new Error("No listings found");
       }
