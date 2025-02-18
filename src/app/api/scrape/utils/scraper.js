@@ -38,7 +38,7 @@ export const scrapeListings = async ({ browser, retryCount }) => {
       const validArticles = listings.filter(validateArticle);
 
       if (validArticles.length === 0) {
-        throw new Error("No news found");
+        throw new Error("No articles found");
       }
 
       return validArticles;
