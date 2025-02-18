@@ -1,3 +1,4 @@
+import Image from "next/image";
 import iArticles from "../interfaces/iArticles";
 
 interface props {
@@ -9,21 +10,50 @@ const Grid = ({ articles }: props) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
       {articles?.map((article, index) => (
         <div
+          className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
           key={index}
-          className="border border-gray-300 rounded-lg p-4 text-center"
         >
-          <h3 className="text-blue-950 text-lg font-semibold mb-2">
-            {article.title}
-          </h3>
-          <p className="text-gray-600">{article.image}</p>
-          <a
-            href={article.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-2 text-blue hover-underline"
-          >
-            View Article
+          <a href={article.link} target="_blank">
+            <Image
+              className="rounded-t-lg object-cover"
+              src={article.image}
+              alt={article.title}
+              width={500}
+              height={100}
+              style={{
+                height: "200px",
+              }}
+            />
           </a>
+          <div className="p-5">
+            <a href={article.link} target="_blank">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {article.title}
+              </h5>
+            </a>
+            <a
+              href={article.link}
+              target="_blank"
+              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Read more
+              <svg
+                className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+            </a>
+          </div>
         </div>
       ))}
     </div>

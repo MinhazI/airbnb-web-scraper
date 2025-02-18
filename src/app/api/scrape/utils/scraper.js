@@ -22,6 +22,7 @@ export const scrapeListings = async ({ browser, retryCount }) => {
       const listings = await page.$$eval(
         ".posts-list-widget.posts-list-style1",
         (elements) => {
+          console.log(elements);
           return elements.slice(0, 10).map((element) => {
             const title =
               element.querySelector(".posts-listunit-title")?.innerText ||
