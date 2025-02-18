@@ -22,6 +22,7 @@ export const Main = () => {
       }
       const data: iArticles[] = await response.json();
       setArticles(data);
+      localStorage.setItem("articles", JSON.stringify(data));
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -34,19 +35,17 @@ export const Main = () => {
   };
 
   useEffect(() => {
-    const storedArticles = localStorage.getItem("properties");
+    const storedArticles = localStorage.getItem("articles");
     if (storedArticles) {
       setArticles(JSON.parse(storedArticles));
-    }
-
-    if (articles.length === 0) {
-      fetchArticles();
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("properties", JSON.stringify(articles));
-  }, [articles]);
+    if (articles.length === 0) {
+      fetchArticles();
+    }
+  }, [articles.length]);
   return (
     <>
       <RefreshButton callback={fetchArticles} loading={loading} />
