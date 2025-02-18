@@ -3,25 +3,25 @@ import React, { useEffect, useState } from "react";
 import Grid from "./Grid";
 import { Loader } from "./Loader";
 import RefreshButton from "./RefreshButton";
-import iListings from "../interfaces/iListings";
+import iArticles from "../interfaces/iArticles";
 
 export const Main = () => {
-  const [listings, setListings] = useState<iListings[]>([]);
+  const [articles, setArticles] = useState<iArticles[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const fetchListings = async () => {
+  const fetchArticles = async () => {
     setLoading(true);
     setError("");
-    setListings([]);
+    setArticles([]);
 
     try {
       const response = await fetch("/api/scrape");
       if (!response.ok) {
-        throw new Error("No listings found");
+        throw new Error("No articles found");
       }
-      const data: iListings[] = await response.json();
-      setListings(data);
+      const data: iArticles[] = await response.json();
+      setArticles(data);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -34,25 +34,25 @@ export const Main = () => {
   };
 
   useEffect(() => {
-    const storedListings = localStorage.getItem("properties");
-    if (storedListings) {
-      setListings(JSON.parse(storedListings));
+    const storedArticles = localStorage.getItem("properties");
+    if (storedArticles) {
+      setArticles(JSON.parse(storedArticles));
     }
 
-    if (listings.length === 0) {
-      fetchListings();
+    if (articles.length === 0) {
+      fetchArticles();
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("properties", JSON.stringify(listings));
-  }, [listings]);
+    localStorage.setItem("properties", JSON.stringify(articles));
+  }, [articles]);
   return (
     <>
-      <RefreshButton callback={fetchListings} loading={loading} />
+      <RefreshButton callback={fetchArticles} loading={loading} />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 relative">
         {error && <p className="text-red-500">{error}</p>}
-        {loading ? <Loader /> : <Grid listings={listings} />}
+        {loading ? <Loader /> : <Grid articles={articles} />}
       </main>
     </>
   );

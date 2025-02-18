@@ -1,28 +1,28 @@
-import iListings from "../interfaces/iListings";
+import iArticles from "../interfaces/iArticles";
 
 interface props {
-  listings: iListings[];
+  articles: iArticles[];
 }
 
-const Grid = ({ listings }: props) => {
+const Grid = ({ articles }: props) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-      {listings?.map((listings, index) => (
+      {articles?.map((article, index) => (
         <div
           key={index}
           className="border border-gray-300 rounded-lg p-4 text-center"
         >
           <h3 className="text-blue-950 text-lg font-semibold mb-2">
-            {listings.title}
+            {article.title}
           </h3>
-          <p className="text-gray-600">{listings.price}</p>
+          <p className="text-gray-600">{article.image}</p>
           <a
-            href={listings.link}
+            href={article.link}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block mt-2 text-blue hover-underline"
           >
-            View Listing
+            View Article
           </a>
         </div>
       ))}
