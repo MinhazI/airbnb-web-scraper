@@ -26,6 +26,7 @@ const Grid = ({ articles }: props) => {
             />
           </a>
           <div className="p-5">
+            <small className="text-gray-400">Posted On: {article.date}</small>
             <a href={article.link} target="_blank">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {article.title}
@@ -36,7 +37,7 @@ const Grid = ({ articles }: props) => {
               target="_blank"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-2"
             >
-              Read more
+              Read article
               <svg
                 className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
                 aria-hidden="true"

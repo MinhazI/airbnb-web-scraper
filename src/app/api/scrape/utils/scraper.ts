@@ -7,7 +7,8 @@ const validateArticle = (article: iArticles): boolean => {
   return (
     typeof article.title === "string" &&
     typeof article.image === "string" &&
-    typeof article.link === "string"
+    typeof article.link === "string" &&
+    typeof article.date === "string"
   );
 };
 
@@ -37,8 +38,9 @@ export const scrapeListings = async ({ browser, retryCount }: ScrapeOptions): Pr
             const image = (element.querySelector(".wp-post-image") as HTMLImageElement)?.src || "N/A";
             const link =
               (element.querySelector(".posts-listunit-title a") as HTMLAnchorElement)?.href || "N/A";
+            const date = (element.querySelector(".entry-published.updated") as HTMLElement)?.title || "N/A";;
 
-            return { title, image, link };
+            return { title, image, link, date };
           });
         }
       );
