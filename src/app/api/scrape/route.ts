@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { chromium } from "playwright";
-import { scrapeListings } from "./utils/scraper.js";
+import { scrapeListings } from "./utils/scraper";
 
 export async function GET() {
     let browser;

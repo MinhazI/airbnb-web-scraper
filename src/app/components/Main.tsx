@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Grid from "./Grid";
 import { Loader } from "./Loader";
 import RefreshButton from "./RefreshButton";
@@ -9,6 +9,7 @@ export const Main = () => {
   const [articles, setArticles] = useState<iArticles[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const isFetched = useRef(false);
 
   const fetchArticles = async () => {
     setLoading(true);
@@ -17,16 +18,15 @@ export const Main = () => {
 
     try {
       const response = await fetch("/api/scrape");
-      if (!response.ok) {
-        throw new Error("No articles found");
-      }
+      if (!response.ok) throw new Error("No articles found");
+
       const data: iArticles[] = await response.json();
       setArticles(data);
       localStorage.setItem("articles", JSON.stringify(data));
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
+      if (err instanceof DOMException && err.name === "AbortError") return;
+      if (err instanceof Error) setError(err.message);
+      else {
         setError("An unexpected error occured");
       }
     } finally {
@@ -38,14 +38,11 @@ export const Main = () => {
     const storedArticles = localStorage.getItem("articles");
     if (storedArticles) {
       setArticles(JSON.parse(storedArticles));
+    } else if (!isFetched.current) {
+      fetchArticles();
+      isFetched.current = true;
     }
   }, []);
-
-  useEffect(() => {
-    if (articles.length === 0) {
-      fetchArticles();
-    }
-  }, [articles.length]);
   return (
     <>
       <RefreshButton callback={fetchArticles} loading={loading} />
