@@ -21,10 +21,10 @@ export const scrapeListings = async ({ browser, retryCount }: ScrapeOptions): Pr
     const page = await browser.newPage();
 
     try {
-      await page.goto("https://www.newswire.lk", { waitUntil: "load" });
+      await page.goto("https://www.newswire.lk", { waitUntil: "domcontentloaded" });
 
       await page.waitForSelector(".posts-list-widget.posts-list-style1", {
-        timeout: 10000,
+        timeout: 5000,
       });
 
       const listings = await page.$$eval(
