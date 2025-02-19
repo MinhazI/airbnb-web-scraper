@@ -23,14 +23,14 @@ export const scrapeListings = async ({ browser, retryCount }: ScrapeOptions): Pr
     try {
       await page.goto("https://www.newswire.lk", { waitUntil: "domcontentloaded" });
 
-      await page.waitForSelector(".posts-list-widget.posts-list-style1", {
+      await page.waitForSelector("#frontpage-area_c_1 .posts-listunit", {
         timeout: 5000,
       });
 
       const listings = await page.$$eval(
-        ".posts-list-widget.posts-list-style1",
+        "#frontpage-area_c_1 .posts-listunit",
         (elements) => {
-          return elements.slice(0, 10).map((element) => {
+          return elements.slice(0, 20).map((element) => {
             const title =
               (element.querySelector(".posts-listunit-title") as HTMLElement)?.innerText ||
               "N/A";
