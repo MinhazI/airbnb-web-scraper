@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 
-/**
- * To do:
- * 1. The countdown doesn't show on the button
- * 2. After the countdown is finished, it counts down to negative and doeesn't enable the button to be refreshed
- */
-
 interface props {
   callback: () => Promise<void>;
-  loading: boolean;
 }
 
-const RefreshButton = ({ callback, loading }: props) => {
-  const [buttonDisable, setButtonDisable] = useState(loading);
+const RefreshButton = ({ callback }: props) => {
+  const [buttonDisable, setButtonDisable] = useState(false);
   const [timeSessionStorage, setTimeSessionStorage] = useState<string | null>(
     null
   );

@@ -7,7 +7,7 @@ import iArticles from "../interfaces/iArticles";
 
 export const Main = () => {
   const [articles, setArticles] = useState<iArticles[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const isFetched = useRef(false);
 
@@ -35,17 +35,20 @@ export const Main = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const storedArticles = localStorage.getItem("articles");
     if (storedArticles) {
       setArticles(JSON.parse(storedArticles));
+      setLoading(false);
     } else if (!isFetched.current) {
       fetchArticles();
       isFetched.current = true;
+      setLoading(false);
     }
   }, []);
   return (
     <>
-      <RefreshButton callback={fetchArticles} loading={loading} />
+      {!loading && <RefreshButton callback={fetchArticles} />}
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 relative">
         {error && <p className="text-red-500">{error}</p>}
         {loading ? <Loader /> : <Grid articles={articles} />}
