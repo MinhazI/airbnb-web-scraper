@@ -4,6 +4,7 @@ import Grid from "./Grid";
 import { Loader } from "./Loader";
 import RefreshButton from "./RefreshButton";
 import iArticles from "../interfaces/iArticles";
+import ThemeToggle from "./ThemeToggle";
 
 export const Main = () => {
   const [articles, setArticles] = useState<iArticles[]>([]);
@@ -49,7 +50,8 @@ export const Main = () => {
   return (
     <>
       {!loading && <RefreshButton callback={fetchArticles} />}
-      <main className="flex flex-col items-center justify-center flex-1 w-full px-4 relative">
+      <ThemeToggle />
+      <main className="flex flex-col items-center justify-center flex-1 w-full px-4 relative bg-slate-50 dark:bg-gray-700">
         {error && <p className="text-red-500">{error}</p>}
         {loading ? <Loader /> : <Grid articles={articles} />}
       </main>

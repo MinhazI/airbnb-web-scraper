@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Providers from "./utils/providers";
 
 export const metadata: Metadata = {
   title: "News Web Scraper",
@@ -12,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-slate-50 dark:bg-gray-700">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

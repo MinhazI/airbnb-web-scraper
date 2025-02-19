@@ -76,7 +76,7 @@ const RefreshButton = ({ callback }: props) => {
 
   return (
     <button
-      className={`bg-slate-950 text-white py-2 px-4 rounded absolute top-4 right-4 ${
+      className={`bg-slate-950 dark:bg-gray-800 dark:outline-slate-300 dark:outline text-white py-2 px-4 rounded absolute top-4 right-4 ${
         buttonDisable ? "disabled:opacity-50" : "hover:bg-slate-700"
       }`}
       onClick={() => onClick()}
